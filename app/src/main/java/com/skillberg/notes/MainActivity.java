@@ -5,6 +5,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +13,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.skillberg.notes.db.NotesContract;
+import com.skillberg.notes.db.NotesDbHelper;
+import com.skillberg.notes.db.NotesProvider;
 import com.skillberg.notes.ui.NotesAdapter;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -31,9 +39,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         RecyclerView recyclerView = findViewById(R.id.notes_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        Spinner spinHome = findViewById(R.id.spinner);
 
-        notesAdapter = new NotesAdapter(null, onNoteClickListener);
+        notesAdapter = new NotesAdapter(null, onNoteClickListener, 1);
         recyclerView.setAdapter(notesAdapter);
+
 
 
         getLoaderManager().initLoader(
@@ -49,8 +59,57 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(intent);
             }
         });
-    }
+        findViewById(R.id.create_fab2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View  v) {
+                Intent intent = new Intent(MainActivity.this, CreateCategoryActivity.class);
+                startActivity(intent);
 
+
+            }
+        });
+        NotesProvider np = new NotesProvider();
+        ArrayList<String> list;
+        list = np.GetCat(this);
+
+
+
+        list.add("Все");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinHome.setAdapter(adapter);
+        /* spinHome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId) {
+                //updateList();
+                if (spinHome.getSelectedItemPosition() == spinHome.getCount()+1) {
+                    notesAdapter = new NotesAdapter(null, onNoteClickListener, -1);
+                    recyclerView.setAdapter(notesAdapter);
+                }
+                else {
+                    notesAdapter = new NotesAdapter(null, onNoteClickListener,spinHome.getSelectedItemPosition()+1);
+                    recyclerView.setAdapter(notesAdapter);
+                }
+
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });*/
+        spinHome.setSelection(spinHome.getCount()-1);
+
+
+    }
+    private void updateList(){
+        NotesProvider np = new NotesProvider();
+        ArrayList<String> list = new ArrayList<>();
+        list = np.GetCat(this);
+        Spinner spinHome = (Spinner)findViewById(R.id.spinner);
+        list.add("Все");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinHome.setAdapter(adapter);
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -62,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 null, // Аргументы выборки
                 null // Сортировка по умолчанию
         );
+
     }
 
     @Override
@@ -69,8 +129,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.i("Test", "Load finished: " + cursor.getCount());
 
         cursor.setNotificationUri(getContentResolver(), NotesContract.Notes.URI);
-
         notesAdapter.swapCursor(cursor);
+
+
     }
 
     @Override
@@ -88,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             intent.putExtra(NoteActivity.EXTRA_NOTE_ID, noteId);
 
             startActivity(intent);
+
         }
     };
 

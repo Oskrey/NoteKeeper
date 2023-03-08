@@ -20,14 +20,21 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.skillberg.notes.db.NotesContract;
+import com.skillberg.notes.db.NotesProvider;
 import com.skillberg.notes.ui.NoteImagesAdapter;
+import com.skillberg.notes.ui.NotesAdapter;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Activity для создания новой заметки
@@ -46,6 +53,7 @@ public class CreateNoteActivity extends BaseNoteActivity {
     private TextInputLayout textTil;
 
     private File currentImageFile;
+    private Spinner spinner;
 
 
     @Override
@@ -53,7 +61,7 @@ public class CreateNoteActivity extends BaseNoteActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_create_note);
-
+        spinner = findViewById(R.id.spinner2);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -78,6 +86,15 @@ public class CreateNoteActivity extends BaseNoteActivity {
 
             initImagesLoader();
         }
+
+        NotesProvider np = new NotesProvider();
+        ArrayList<String> list;
+        list = np.GetCat(this);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
     }
 
     /**
@@ -93,9 +110,10 @@ public class CreateNoteActivity extends BaseNoteActivity {
 
         String title = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_TITLE));
         String noteText = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NOTE));
-
+        int catInt = cursor.getInt(cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_CATEGORY));
         titleEt.setText(title);
         textEt.setText(noteText);
+        spinner.setSelection(catInt);
     }
 
     @Override
@@ -202,6 +220,7 @@ public class CreateNoteActivity extends BaseNoteActivity {
             ContentValues contentValues = new ContentValues();
             contentValues.put(NotesContract.Notes.COLUMN_TITLE, title);
             contentValues.put(NotesContract.Notes.COLUMN_NOTE, text);
+            contentValues.put(NotesContract.Notes.COLUMN_CATEGORY, spinner.getSelectedItemPosition()+1);
 
             if (noteId == -1) {
                 contentValues.put(NotesContract.Notes.COLUMN_CREATED_TS, currentTime);

@@ -26,4 +26,5 @@ public class NotesDbHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(NotesContract.Images.CREATE_TABLE);
         }
     }
+
 }

@@ -50,7 +50,7 @@ public abstract class BaseNoteActivity extends AppCompatActivity implements Load
         if (id == LOADER_NOTE) {
             return new CursorLoader(
                     this,  // Контекст
-                    ContentUris.withAppendedId(NotesContract.Notes.URI, noteId), // URI
+                        ContentUris.withAppendedId(NotesContract.Notes.URI, noteId), // URI
                     NotesContract.Notes.SINGLE_PROJECTION, // Столбцы
                     null, // Параметры выборки
                     null, // Аргументы выборки

@@ -4,10 +4,6 @@
     <item
         android:drawable="@drawable/background"/>
 
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/background"/>
-    </item>
+
 
 </layer-list>

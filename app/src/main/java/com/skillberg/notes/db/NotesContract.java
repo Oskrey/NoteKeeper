@@ -17,7 +17,7 @@ public final class NotesContract {
     public static final String[] CREATE_DATABASE_QUERIES = {
             Notes.CREATE_TABLE,
             Notes.CREATE_UPDATED_TS_INDEX,
-
+            Categories.CREATE_TABLE,
             Images.CREATE_TABLE
     };
 
@@ -38,19 +38,22 @@ public final class NotesContract {
         public static final String COLUMN_NOTE = "note";
         public static final String COLUMN_CREATED_TS = "created_ts";
         public static final String COLUMN_UPDATED_TS = "updated_ts";
+        public static final String COLUMN_CATEGORY = "category";
 
         public static final String CREATE_TABLE = String.format("CREATE TABLE %s " +
                         "(%s INTEGER PRIMARY KEY, " +
                         "%s TEXT NOT NULL, " +
                         "%s TEXT NOT NULL, " +
                         "%s INTEGER NOT NULL, " +
+                        "%s INTEGER NOT NULL,"+
                         "%s INTEGER NOT NULL);",
                 TABLE_NAME,
                 _ID,
                 COLUMN_TITLE,
                 COLUMN_NOTE,
                 COLUMN_CREATED_TS,
-                COLUMN_UPDATED_TS);
+                COLUMN_UPDATED_TS,
+                COLUMN_CATEGORY);
 
         public static final String CREATE_UPDATED_TS_INDEX = String.format("CREATE INDEX updated_ts_index " +
                         "ON %s (%s);",
@@ -65,7 +68,8 @@ public final class NotesContract {
                 _ID,
                 COLUMN_TITLE,
                 COLUMN_CREATED_TS,
-                COLUMN_UPDATED_TS
+                COLUMN_UPDATED_TS,
+                COLUMN_CATEGORY
         };
 
         public static final String[] SINGLE_PROJECTION = {
@@ -73,7 +77,8 @@ public final class NotesContract {
                 COLUMN_TITLE,
                 COLUMN_NOTE,
                 COLUMN_CREATED_TS,
-                COLUMN_UPDATED_TS
+                COLUMN_UPDATED_TS,
+                COLUMN_CATEGORY
         };
 
         /**
@@ -126,5 +131,49 @@ public final class NotesContract {
         public static final String URI_TYPE_IMAGE_DIR = "vnd.android.cursor.dir/vnd.skillberg.image";
         public static final String URI_TYPE_IMAGE_ITEM = "vnd.android.cursor.item/vnd.skillberg.image";
     }
+    /**
+     * Описание таблицы с категориями
+     */
+    public static abstract class Categories implements BaseColumns {
 
+        public static final String TABLE_NAME = "categories";
+
+        public static final Uri URI = Uri.parse(NotesContract.URI + "/" + TABLE_NAME);
+
+        public static final String CATEGORIES_NAME = "name";
+
+        public static final String CREATE_TABLE = String.format("CREATE TABLE %s " +
+                        "(%s INTEGER PRIMARY KEY, " +
+                        "%s TEXT NOT NULL," +
+                        "FOREIGN KEY (%s) REFERENCES %s (%s) ON DELETE CASCADE);",
+                TABLE_NAME,
+                _ID,
+                CATEGORIES_NAME,
+                _ID,
+                Notes.TABLE_NAME,
+                Notes._ID);
+
+        /**
+         * Столбцы, которые будем выбирать
+         */
+
+        public static final String[] LIST_PROJECTION = {
+                _ID,
+                CATEGORIES_NAME
+        };
+
+        public static final String[] SINGLE_PROJECTION = {
+                _ID,
+                CATEGORIES_NAME
+        };
+
+        /**
+         * Типы данных
+         */
+
+        public static final String URI_TYPE_CATEGORIES_DIR = "vnd.android.cursor.dir/vnd.skillberg.category";
+
+        public static final String URI_TYPE_CATEGORIES_ITEM = "vnd.android.cursor.item/vnd.skillberg.category";
+
+    }
 }
