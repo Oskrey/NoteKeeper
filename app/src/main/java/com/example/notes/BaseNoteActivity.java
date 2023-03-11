@@ -1,4 +1,4 @@
-package com.skillberg.notes;
+package com.example.notes;
 
 import android.app.LoaderManager;
 import android.content.ContentUris;
@@ -8,8 +8,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.skillberg.notes.db.NotesContract;
-import com.skillberg.notes.ui.NoteImagesAdapter;
+import com.example.notes.db.NotesContract;
+import com.example.notes.ui.NoteImagesAdapter;
 
 /**
  * Базовая Activity для отображения и редактирования заметки

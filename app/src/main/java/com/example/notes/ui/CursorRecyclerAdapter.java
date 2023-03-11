@@ -1,10 +1,10 @@
-package com.skillberg.notes.ui;
+package com.example.notes.ui;
 
 import android.database.Cursor;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
-import com.skillberg.notes.db.NotesContract;
+import com.example.notes.db.NotesContract;
 
 /**
  * Адаптер для RecyclerView, работающий с Cursor

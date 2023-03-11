@@ -1,4 +1,4 @@
-package com.skillberg.notes;
+package com.example.notes;
 
 import android.app.AlertDialog;
 import android.content.ContentUris;
@@ -20,15 +20,12 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.skillberg.notes.db.NotesContract;
-import com.skillberg.notes.db.NotesProvider;
-import com.skillberg.notes.ui.NoteImagesAdapter;
-import com.skillberg.notes.ui.NotesAdapter;
+import com.example.notes.db.NotesContract;
+import com.example.notes.db.NotesProvider;
+import com.example.notes.ui.NoteImagesAdapter;
 
 import java.io.File;
 import java.io.FileOutputStream;

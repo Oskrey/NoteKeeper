@@ -1,4 +1,4 @@
-package com.skillberg.notes.db;
+package com.example.notes.db;
 
 import android.net.Uri;
 import android.provider.BaseColumns;

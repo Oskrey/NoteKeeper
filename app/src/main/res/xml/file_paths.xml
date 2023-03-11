@@ -3,6 +3,6 @@
 
     <external-path
         name="my_images"
-        path="Android/data/com.skillberg.notes/files/Pictures" />
+        path="Android/data/com.example.notes/files/Pictures" />
 
 </paths>

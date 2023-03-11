@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.skillberg.notes">
+    package="com.example.notes">
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <activity
-            android:name=".SplashActivity"
+            android:name="com.example.notes.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -24,21 +24,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.example.notes.MainActivity" />
 
-        <activity android:name=".CreateNoteActivity" />
-        <activity android:name=".CreateCategoryActivity" />
+        <activity android:name="com.example.notes.CreateNoteActivity" />
+        <activity android:name="com.example.notes.CreateCategoryActivity" />
 
-        <activity android:name=".NoteActivity" />
+        <activity android:name="com.example.notes.NoteActivity" />
 
         <provider
-            android:name=".db.NotesProvider"
-            android:authorities="com.skillberg.notes.provider"
+            android:name="com.example.notes.db.NotesProvider"
+            android:authorities="com.example.notes.provider"
             android:exported="false" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.skillberg.notes.fileprovider"
+            android:authorities="com.example.notes.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
 

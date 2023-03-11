@@ -1,6 +1,5 @@
-package com.skillberg.notes;
+package com.example.notes;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,7 +11,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.skillberg.notes.db.NotesContract;
+import com.example.notes.db.NotesContract;
 
 /**
  * Activity для создания новой заметки

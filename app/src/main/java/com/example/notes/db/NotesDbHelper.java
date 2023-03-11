@@ -1,4 +1,4 @@
-package com.skillberg.notes.db;
+package com.example.notes.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

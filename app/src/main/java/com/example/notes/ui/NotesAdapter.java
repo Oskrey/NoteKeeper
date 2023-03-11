@@ -1,15 +1,14 @@
-package com.skillberg.notes.ui;
+package com.example.notes.ui;
 
 import android.database.Cursor;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.skillberg.notes.R;
-import com.skillberg.notes.db.NotesContract;
+import com.example.notes.R;
+import com.example.notes.db.NotesContract;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

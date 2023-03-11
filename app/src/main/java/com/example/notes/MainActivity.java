@@ -1,4 +1,4 @@
-package com.skillberg.notes;
+package com.example.notes;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -15,9 +15,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.skillberg.notes.db.NotesContract;
-import com.skillberg.notes.db.NotesProvider;
-import com.skillberg.notes.ui.NotesAdapter;
+import com.example.notes.db.NotesContract;
+import com.example.notes.db.NotesProvider;
+import com.example.notes.ui.NotesAdapter;
 
 import java.util.ArrayList;
 

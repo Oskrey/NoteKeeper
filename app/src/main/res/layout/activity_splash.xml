@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
 
 
-    tools:context="com.skillberg.notes.MainActivity">
+    tools:context="com.example.notes.MainActivity">
 
     <TextView
         android:id="@+id/notekeeper"

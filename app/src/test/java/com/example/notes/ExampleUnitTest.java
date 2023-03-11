@@ -1,4 +1,4 @@
-package com.skillberg.notes;
+package com.example.notes;
 
 import org.junit.Test;
 

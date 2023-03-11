@@ -1,4 +1,4 @@
-package com.skillberg.notes;
+package com.example.notes;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

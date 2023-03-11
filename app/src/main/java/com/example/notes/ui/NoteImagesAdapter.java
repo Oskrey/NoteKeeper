@@ -1,4 +1,4 @@
-package com.skillberg.notes.ui;
+package com.example.notes.ui;
 
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.skillberg.notes.R;
-import com.skillberg.notes.db.NotesContract;
+import com.example.notes.R;
+import com.example.notes.db.NotesContract;
 
 /**
  * Адаптер для отображения изображений заметки

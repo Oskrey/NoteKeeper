@@ -1,4 +1,4 @@
-package com.skillberg.notes.db;
+package com.example.notes.db;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -11,8 +11,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-
-import com.skillberg.notes.MainActivity;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.skillberg.notes;
+package com.example.notes;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,8 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.skillberg.notes.db.NotesContract;
-import com.skillberg.notes.ui.NoteImagesAdapter;
+import com.example.notes.db.NotesContract;
+import com.example.notes.ui.NoteImagesAdapter;
 
 /**
  * Activity для просмотра заметки
