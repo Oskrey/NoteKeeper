@@ -37,7 +37,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Название категории"
-                    android:inputType="textCapSentences" />
+                    android:inputType="textCapSentences"
+                    tools:ignore="HardcodedText,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
             </android.support.design.widget.TextInputLayout>
 

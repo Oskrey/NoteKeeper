@@ -5,7 +5,6 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.skillberg.notes.db.NotesContract;
-import com.skillberg.notes.db.NotesDbHelper;
 import com.skillberg.notes.db.NotesProvider;
 import com.skillberg.notes.ui.NotesAdapter;
 
@@ -52,14 +49,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 this // Callback для событий загрузчика
         );
 
-        findViewById(R.id.create_fab).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.createNote_fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateNoteActivity.class);
                 startActivity(intent);
             }
         });
-        findViewById(R.id.create_fab2).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.createCat_fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View  v) {
                 Intent intent = new Intent(MainActivity.this, CreateCategoryActivity.class);

@@ -16,7 +16,8 @@
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -29,7 +30,7 @@
     </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/create_fab"
+        android:id="@+id/createNote_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -39,10 +40,11 @@
         android:tint="@android:color/widget_edittext_dark"
         app:layout_anchor="@id/notes_rv"
 
-        app:layout_anchorGravity="bottom|end" />
+        app:layout_anchorGravity="bottom|end"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/create_fab2"
+        android:id="@+id/createCat_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -52,6 +54,7 @@
         android:tint="@android:color/widget_edittext_dark"
         app:layout_anchor="@id/notes_rv"
 
-        app:layout_anchorGravity="bottom|start" />
+        app:layout_anchorGravity="bottom|start"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
 </android.support.design.widget.CoordinatorLayout>
