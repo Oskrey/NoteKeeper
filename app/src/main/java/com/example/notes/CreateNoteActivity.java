@@ -110,7 +110,7 @@ public class CreateNoteActivity extends BaseNoteActivity {
         int catInt = cursor.getInt(cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_CATEGORY));
         titleEt.setText(title);
         textEt.setText(noteText);
-        spinner.setSelection(catInt);
+        spinner.setSelection(catInt-1);
     }
 
     @Override
@@ -271,7 +271,7 @@ public class CreateNoteActivity extends BaseNoteActivity {
         String filename = System.currentTimeMillis() + ".jpg";
 
         // Получаем приватную директорию на карте памяти для хранения изображений
-        // Выглядит она примерно так: /sdcard/Android/data/com.skillberg.notes/files/Pictures
+        // Выглядит она примерно так: /sdcard/Android/data/com.example.notes/files/Pictures
         // Директория будет создана автоматически, если ещё не существует
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
@@ -310,7 +310,7 @@ public class CreateNoteActivity extends BaseNoteActivity {
         if (currentImageFile != null) {
             // Если файл создался — получаем его URI
             Uri imageUri = FileProvider.getUriForFile(this,
-                    "com.skillberg.notes.fileprovider",
+                    "com.example.notes.fileprovider",
                     currentImageFile);
 
             // Передаём URI в камеру

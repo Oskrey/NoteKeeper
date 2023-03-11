@@ -11,7 +11,7 @@ public final class NotesContract {
     public static final String DB_NAME = "notes.db";
     public static final int DB_VERSION = 2;
 
-    public static final String AUTHORITY = "com.skillberg.notes.provider";
+    public static final String AUTHORITY = "com.example.notes.provider";
     public static final String URI = "content://" + AUTHORITY;
 
     public static final String[] CREATE_DATABASE_QUERIES = {
@@ -86,10 +86,10 @@ public final class NotesContract {
          */
 
         // Список заметок
-        public static final String URI_TYPE_NOTE_DIR = "vnd.android.cursor.dir/vnd.skillberg.note";
+        public static final String URI_TYPE_NOTE_DIR = "vnd.android.cursor.dir/vnd.example.note";
 
         // Одна заметка
-        public static final String URI_TYPE_NOTE_ITEM = "vnd.android.cursor.item/vnd.skillberg.note";
+        public static final String URI_TYPE_NOTE_ITEM = "vnd.android.cursor.item/vnd.example.note";
 
     }
 
@@ -128,8 +128,8 @@ public final class NotesContract {
          * Типы данных
          */
 
-        public static final String URI_TYPE_IMAGE_DIR = "vnd.android.cursor.dir/vnd.skillberg.image";
-        public static final String URI_TYPE_IMAGE_ITEM = "vnd.android.cursor.item/vnd.skillberg.image";
+        public static final String URI_TYPE_IMAGE_DIR = "vnd.android.cursor.dir/vnd.example.image";
+        public static final String URI_TYPE_IMAGE_ITEM = "vnd.android.cursor.item/vnd.example.image";
     }
     /**
      * Описание таблицы с категориями
@@ -171,9 +171,9 @@ public final class NotesContract {
          * Типы данных
          */
 
-        public static final String URI_TYPE_CATEGORIES_DIR = "vnd.android.cursor.dir/vnd.skillberg.category";
+        public static final String URI_TYPE_CATEGORIES_DIR = "vnd.android.cursor.dir/vnd.example.category";
 
-        public static final String URI_TYPE_CATEGORIES_ITEM = "vnd.android.cursor.item/vnd.skillberg.category";
+        public static final String URI_TYPE_CATEGORIES_ITEM = "vnd.android.cursor.item/vnd.example.category";
 
     }
 }
