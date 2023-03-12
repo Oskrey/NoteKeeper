@@ -23,10 +23,8 @@ import java.util.Locale;
 
     private final OnNoteClickListener onNoteClickListener;
     private final OnNoteLongClickListener onNoteLongClickListener;
-    private int catID;
-    public NotesAdapter(Cursor cursor, OnNoteClickListener onNoteClickListener, OnNoteLongClickListener onNoteLongClickListener, int catID) {
+    public NotesAdapter(Cursor cursor, OnNoteClickListener onNoteClickListener, OnNoteLongClickListener onNoteLongClickListener) {
         super(cursor);
-        this.catID = catID;
 
         this.onNoteClickListener = onNoteClickListener;
         this.onNoteLongClickListener = onNoteLongClickListener;

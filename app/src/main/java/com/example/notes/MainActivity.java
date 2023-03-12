@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView.setLayoutManager(layoutManager);
         Spinner spinHome = findViewById(R.id.spinner);
 
-        notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener, 1);
+        notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener);
+
         recyclerView.setAdapter(notesAdapter);
 
 
@@ -59,65 +60,52 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateNoteActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
         findViewById(R.id.createCat_fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View  v) {
                 Intent intent = new Intent(MainActivity.this, CreateCategoryActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
 
 
             }
         });
-        NotesProvider np = new NotesProvider();
-        ArrayList<String> list;
-        list = np.GetCat(this);
-
-
-
-        list.add("Все");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinHome.setAdapter(adapter);
-
 
         spinHome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
            public void onItemSelected(AdapterView<?> parent, View itemSelected, int selectedItemPosition, long selectedId) {
 
-               if (selectedId == spinHome.getCount()-1) {
-                   notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener, 1);
+               if (selectedItemPosition+1 == 3) {
+                   notesAdapter = new NotesAdapter(getContentResolver().query(NotesContract.Notes.URI, null,    null,null,null), onNoteClickListener, onNoteLongClickListener);
+
+                   //notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener);
                    recyclerView.setAdapter(notesAdapter);
+
                }
-               else {
-                   int in = 1;
 
-                   String arg = Integer.toString(selectedItemPosition+1);
-
-
-                   NotesProvider np = new NotesProvider();
-                   notesAdapter = new NotesAdapter(getContentResolver().query(NotesContract.Notes.URI, null ,  " category = ? ", new String[]{arg},null), onNoteClickListener, onNoteLongClickListener, 1);
+               else  {
+                   notesAdapter = new NotesAdapter(getContentResolver().query(NotesContract.Notes.URI, null, " category = ? ", new String[]{Integer.toString(selectedItemPosition + 1)}, null), onNoteClickListener, onNoteLongClickListener);
                    recyclerView.setAdapter(notesAdapter);
+
                }
            }
            public void onNothingSelected(AdapterView<?> parent) {
            }
         });
-        spinHome.setSelection(spinHome.getCount()-1);
 
 
     }
     private void updateList(){
         NotesProvider np = new NotesProvider();
-        ArrayList<String> list = new ArrayList<>();
-        list = np.GetCat(this);
-        Spinner spinHome = (Spinner)findViewById(R.id.spinner);
+        ArrayList<String> list = np.GetCat(this);
+        Spinner spinHome = findViewById(R.id.spinner);
         list.add("Все");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinHome.setAdapter(adapter);
+        spinHome.setSelection(spinHome.getCount()-1);
     }
 
     @Override
@@ -132,13 +120,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         );
 
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        updateList();
+    }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         Log.i("Test", "Load finished: " + cursor.getCount());
 
         cursor.setNotificationUri(getContentResolver(), NotesContract.Notes.URI);
         notesAdapter.swapCursor(cursor);
+        updateList();
+       // notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener, 1);
 
 
     }
@@ -160,7 +153,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             startActivity(intent);
         }
     };
-
+    /**
+     * Listener для долгого клика по заметке
+     */
     private final NotesAdapter.OnNoteLongClickListener onNoteLongClickListener = new NotesAdapter.OnNoteLongClickListener() {
         @Override
         public void onNoteLongTap(long noteId) {

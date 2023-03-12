@@ -87,10 +87,14 @@ public class CreateNoteActivity extends BaseNoteActivity {
         NotesProvider np = new NotesProvider();
         ArrayList<String> list;
         list = np.GetCat(this);
+        list.add("Все");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setSelection(spinner.getCount()-1);
+
+
 
     }
 
@@ -213,11 +217,14 @@ public class CreateNoteActivity extends BaseNoteActivity {
 
         if (isCorrect) {
             long currentTime = System.currentTimeMillis();
+            int category = spinner.getSelectedItemPosition()+1;
+
 
             ContentValues contentValues = new ContentValues();
             contentValues.put(NotesContract.Notes.COLUMN_TITLE, title);
             contentValues.put(NotesContract.Notes.COLUMN_NOTE, text);
-            contentValues.put(NotesContract.Notes.COLUMN_CATEGORY, spinner.getSelectedItemPosition()+1);
+            if (spinner.getSelectedItemPosition()+1 != spinner.getCount())
+                contentValues.put(NotesContract.Notes.COLUMN_CATEGORY, spinner.getSelectedItemPosition()+1);
 
             if (noteId == -1) {
                 contentValues.put(NotesContract.Notes.COLUMN_CREATED_TS, currentTime);
