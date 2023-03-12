@@ -111,13 +111,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         Log.i("Test", "Load finished: " + cursor.getCount());
-
         cursor.setNotificationUri(getContentResolver(), NotesContract.Notes.URI);
         notesAdapter.swapCursor(cursor);
         updateList();
-       // notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener, 1);
-
-
     }
 
     @Override
@@ -156,12 +152,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         }
                     })
                     .create();
-
             if (!isFinishing()) {
                 alertDialog.show();
             }
-
-
         }
     };
 
