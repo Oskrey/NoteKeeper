@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
            public void onItemSelected(AdapterView<?> parent, View itemSelected, int selectedItemPosition, long selectedId) {
 
-               if (selectedItemPosition+1 == 3)
+               if (selectedItemPosition+1 == spinHome.getCount())
                    notesAdapter = new NotesAdapter(getContentResolver().query(NotesContract.Notes.URI, null,    null,null,null), onNoteClickListener, onNoteLongClickListener);
                else
                    notesAdapter = new NotesAdapter(getContentResolver().query(NotesContract.Notes.URI, null, " category = ? ", new String[]{Integer.toString(selectedItemPosition + 1)}, null), onNoteClickListener, onNoteLongClickListener);
