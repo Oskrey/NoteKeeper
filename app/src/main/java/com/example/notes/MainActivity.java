@@ -35,27 +35,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         RecyclerView recyclerView = findViewById(R.id.notes_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         Spinner spinHome = findViewById(R.id.spinner);
-
         notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener);
-
         recyclerView.setAdapter(notesAdapter);
-
-
-
         getLoaderManager().initLoader(
                 0, // Идентификатор загрузчика
                 null, // Аргументы
                 this // Callback для событий загрузчика
         );
-
         findViewById(R.id.createNote_fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,24 +64,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             }
         });
-
         spinHome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
            public void onItemSelected(AdapterView<?> parent, View itemSelected, int selectedItemPosition, long selectedId) {
 
-               if (selectedItemPosition+1 == 3) {
+               if (selectedItemPosition+1 == 3)
                    notesAdapter = new NotesAdapter(getContentResolver().query(NotesContract.Notes.URI, null,    null,null,null), onNoteClickListener, onNoteLongClickListener);
-
-                   //notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener);
-                   recyclerView.setAdapter(notesAdapter);
-
-               }
-
-               else  {
+               else
                    notesAdapter = new NotesAdapter(getContentResolver().query(NotesContract.Notes.URI, null, " category = ? ", new String[]{Integer.toString(selectedItemPosition + 1)}, null), onNoteClickListener, onNoteLongClickListener);
-                   recyclerView.setAdapter(notesAdapter);
 
-               }
+               recyclerView.setAdapter(notesAdapter);
            }
            public void onNothingSelected(AdapterView<?> parent) {
            }
