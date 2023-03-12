@@ -1,5 +1,7 @@
 package com.example.notes.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,12 +22,14 @@ import java.util.Locale;
     public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder> {
 
     private final OnNoteClickListener onNoteClickListener;
+    private final OnNoteLongClickListener onNoteLongClickListener;
     private int catID;
-    public NotesAdapter(Cursor cursor, OnNoteClickListener onNoteClickListener, int catID) {
+    public NotesAdapter(Cursor cursor, OnNoteClickListener onNoteClickListener, OnNoteLongClickListener onNoteLongClickListener, int catID) {
         super(cursor);
         this.catID = catID;
 
         this.onNoteClickListener = onNoteClickListener;
+        this.onNoteLongClickListener = onNoteLongClickListener;
 
     }
 
@@ -83,6 +87,17 @@ import java.util.Locale;
                         onNoteClickListener.onNoteClick(noteId);
                     }
                 });
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+
+
+                        long noteId = (Long) v.getTag();
+                        onNoteLongClickListener.onNoteLongTap(noteId);
+
+                        return false;
+                    }
+                });
         }
 
     }
@@ -92,5 +107,11 @@ import java.util.Locale;
      */
     public interface OnNoteClickListener {
         void onNoteClick(long noteId);
+    }
+    /**
+     * Слушатель для обработки длинных нажатий
+     */
+    public interface OnNoteLongClickListener {
+        void onNoteLongTap(long noteId);
     }
 }

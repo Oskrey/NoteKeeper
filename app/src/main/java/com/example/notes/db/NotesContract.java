@@ -46,7 +46,7 @@ public final class NotesContract {
                         "%s TEXT NOT NULL, " +
                         "%s INTEGER NOT NULL, " +
                         "%s INTEGER NOT NULL,"+
-                        "%s INTEGER NOT NULL);",
+                        "%s INTEGER NULL);",
                 TABLE_NAME,
                 _ID,
                 COLUMN_TITLE,

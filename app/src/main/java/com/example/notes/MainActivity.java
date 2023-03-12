@@ -1,7 +1,10 @@
 package com.example.notes;
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -10,8 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Selection;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -38,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView.setLayoutManager(layoutManager);
         Spinner spinHome = findViewById(R.id.spinner);
 
-        notesAdapter = new NotesAdapter(null, onNoteClickListener, 1);
+        notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener, 1);
         recyclerView.setAdapter(notesAdapter);
 
 
@@ -75,24 +81,30 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinHome.setAdapter(adapter);
-        /* spinHome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            public void onItemSelected(AdapterView<?> parent,
-                                       View itemSelected, int selectedItemPosition, long selectedId) {
-                //updateList();
-                if (spinHome.getSelectedItemPosition() == spinHome.getCount()+1) {
-                    notesAdapter = new NotesAdapter(null, onNoteClickListener, -1);
-                    recyclerView.setAdapter(notesAdapter);
-                }
-                else {
-                    notesAdapter = new NotesAdapter(null, onNoteClickListener,spinHome.getSelectedItemPosition()+1);
-                    recyclerView.setAdapter(notesAdapter);
-                }
 
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });*/
+        spinHome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+           public void onItemSelected(AdapterView<?> parent, View itemSelected, int selectedItemPosition, long selectedId) {
+
+               if (selectedId == spinHome.getCount()-1) {
+                   notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteLongClickListener, 1);
+                   recyclerView.setAdapter(notesAdapter);
+               }
+               else {
+                   int in = 1;
+
+                   String arg = Integer.toString(selectedItemPosition+1);
+
+
+                   NotesProvider np = new NotesProvider();
+                   notesAdapter = new NotesAdapter(getContentResolver().query(NotesContract.Notes.URI, null ,  " category = ? ", new String[]{arg},null), onNoteClickListener, onNoteLongClickListener, 1);
+                   recyclerView.setAdapter(notesAdapter);
+               }
+           }
+           public void onNothingSelected(AdapterView<?> parent) {
+           }
+        });
         spinHome.setSelection(spinHome.getCount()-1);
 
 
@@ -146,6 +158,30 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             intent.putExtra(NoteActivity.EXTRA_NOTE_ID, noteId);
 
             startActivity(intent);
+        }
+    };
+
+    private final NotesAdapter.OnNoteLongClickListener onNoteLongClickListener = new NotesAdapter.OnNoteLongClickListener() {
+        @Override
+        public void onNoteLongTap(long noteId) {
+            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(R.string.title_dialog_delete_warning)
+                    .setItems(R.array.delete_warning, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (which == 0) {
+                                getContentResolver().delete(ContentUris.withAppendedId(NotesContract.Notes.URI, noteId),null,null);
+                            } else if (which == 1) {
+                                return;
+                            }
+                        }
+                    })
+                    .create();
+
+            if (!isFinishing()) {
+                alertDialog.show();
+            }
+
 
         }
     };

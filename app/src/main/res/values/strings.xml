@@ -11,6 +11,7 @@
     <string name="title_attach_image">Прикрепить изображение</string>
 
     <string name="title_dialog_attachment_variants">Прикрепить изображение</string>
+    <string name="title_dialog_delete_warning">Удалить заметку?</string>
 
     <string name="message_delete_image">Удалить изображение?</string>
 
@@ -20,6 +21,10 @@
     <string-array name="attachment_variants">
         <item>Выбрать из галереи</item>
         <item>Сделать снимок</item>
+    </string-array>
+    <string-array name="delete_warning">
+        <item>Удалить</item>
+        <item>Оставить</item>
     </string-array>
 
 </resources>
